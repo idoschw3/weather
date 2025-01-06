@@ -19,7 +19,7 @@ if name:
             response = requests.get(url, parameters)
             if response.status_code == 200:
                 data = response.json()
-                icon_url = data['current']['condition']['icon']
+                icon_url = "https:" + data['current']['condition']['icon']
                 st.write(f"Here's the current weather in {city}:")
                 st.write(f"Data is updated to {data['location']['localtime']} local time.")
                 st.write(f"Temperature is {data['current']['temp_c']} celsius degrees.")
