@@ -18,7 +18,13 @@ def get_city_local_time(city_name):
 
         timezone = pytz.timezone(timezone_str)
         city_time = datetime.now(timezone)
-        return city_time.strftime('%Y-%m-%d %H:%M')
+
+        utc_offset = city_time.utcoffset()
+        offset_hours = utc_offset.total_seconds() // 3600
+        offset_minutes = (utc_offset.total_seconds() % 3600) // 60
+        formatted_offset = f"UTC {'+' if offset_hours >= 0 else ''}{int(offset_hours):02}:{int(offset_minutes):02}"
+
+        return city_time.strftime('%Y-%m-%d %H:%M'), formatted_offset
 
     except (GeocoderTimedOut, GeocoderUnavailable) as e:
         return None, f"Geocoding service error: {str(e)}"
