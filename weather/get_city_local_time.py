@@ -18,7 +18,7 @@ def get_city_local_time(city_name):
 
         timezone = pytz.timezone(timezone_str)
         city_time = datetime.now(timezone)
-        return city_time.strftime('%Y-%m-%d %H:%M:%S')
+        return city_time.strftime('%Y-%m-%d %H:%M')
 
     except (GeocoderTimedOut, GeocoderUnavailable) as e:
         return None, f"Geocoding service error: {str(e)}"
@@ -28,6 +28,6 @@ def get_city_local_time(city_name):
 def get_system_local_time():
 
     local_time = datetime.now(pytz.utc).astimezone()
-    return local_time.strftime('%Y-%m-%d %H:%M:%S')
+    return local_time.strftime('%Y-%m-%d %H:%M')
 
 get_system_local_time()
