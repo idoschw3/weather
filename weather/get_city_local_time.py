@@ -24,3 +24,10 @@ def get_city_local_time(city_name):
         return None, f"Geocoding service error: {str(e)}"
     except Exception as e:
         return None, f"An unexpected error occurred: {str(e)}"
+
+def get_system_local_time():
+
+    local_time = datetime.now(pytz.utc).astimezone()
+    return local_time.strftime('%Y-%m-%d %H:%M:%S')
+
+get_system_local_time()
