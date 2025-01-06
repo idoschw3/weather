@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+from weather.get_city_local_time import get_city_local_time
 
 st.title("Weather App")
 name = st.text_input("Enter your name:")
@@ -7,6 +8,7 @@ if name:
     st.write(f"Hello {name}, welcome to the weather app")
     city = st.text_input("At which city you wish to check the current weather?")
     if city:
+        st.write(f"{city} local time: {get_city_local_time(city)}.")
         if st.button("show weather data"):
             key = '63e9898f15bf448cbe4130843250501'
             url = "http://api.weatherapi.com/v1/current.json"
