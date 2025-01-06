@@ -22,6 +22,6 @@ if name:
                 st.write(f"Temperature is {data['current']['temp_c']} celsius degrees.")
                 st.write(f"Humidity is {data['current']['humidity']}.")
                 st.write(f"Wind speed is {data['current']['wind_kph']} kph.")
-                st.write(f"Conditions are: {data['current']['condition']['text']}")
+                st.write(f"Conditions are: {data['current']['condition']['text']}.")
             else:
                 st.write("Failed to fetch current weather. Try again later.")
