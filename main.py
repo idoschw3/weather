@@ -3,13 +3,29 @@ import requests
 from weather.get_city_local_time import get_city_local_time_api, get_city_local_time_json
 from weather.json_utils import load_json
 from weather.foliumm_utils import get_lat_lon, display_map
-from streamlit_folium import st_folium
 
 st.title("Weather App")
-name = st.text_input("Enter your name:")
+default_name = None
+default_user_city = None
+default_city = None
+
+uploaded_file = st.file_uploader("Upload your settings file (JSON)", type="json")
+st.write("""
+upload .json file only, formated as follows:\n
+{"name": "your_name", "user_city": "your_city", "city": "city_name"}\n
+Ensure all keys and string values are enclosed in double quotes, and there are no trailing commas.
+""")
+if uploaded_file is not None:
+    import json
+    settings_data = json.load(uploaded_file)
+    default_name = settings_data.get("name", None)
+    default_user_city = settings_data.get("user_city", None)
+    default_city = settings_data.get("city", None)
+
+name = st.text_input("Enter your name:", value=default_name)
 if name:
     st.write(f"Hello {name}, welcome to the weather app")
-    user_city = st.text_input("From which city are you using the app?").lower()
+    user_city = st.text_input("From which city are you using the app?", value=default_user_city).lower()
     if user_city:
         user_city_data = load_json('data/cities_timezone.json')
         if user_city in user_city_data:
@@ -22,7 +38,7 @@ if name:
             if timezone:
                 st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
 
-    city = st.text_input("At which city you wish to check the current weather?").lower()
+    city = st.text_input("At which city you wish to check the current weather?", value=default_city).lower()
     if city:
         city_data = load_json('data/cities_timezone.json')
         if city in city_data:
