@@ -1,5 +1,6 @@
 import json
 
+
 def load_json(file_path):
     """
     Load JSON data from a file.
@@ -16,6 +17,7 @@ def load_json(file_path):
 
     return data
 
+
 def append_to_json(file_path, new_data):
     """
         Append new data to the JSON file.
@@ -28,4 +30,6 @@ def append_to_json(file_path, new_data):
         data = json.load(file)
 
         data.update(new_data)
-        return data
+
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
