@@ -1277,6 +1277,23 @@ watchdog = {version = ">=2.1.5,<7", markers = "platform_system != \"Darwin\""}
 snowflake = ["snowflake-connector-python (>=2.8.0)", "snowflake-snowpark-python[modin] (>=1.17.0)"]
 
 [[package]]
+name = "streamlit-folium"
+version = "0.24.0"
+description = "Render Folium objects in Streamlit"
+optional = false
+python-versions = ">=3.9"
+files = [
+    {file = "streamlit_folium-0.24.0-py3-none-any.whl", hash = "sha256:e7b1d30c5a5db018442a459644d085a397754da8c32047999e83f6bdf434345d"},
+    {file = "streamlit_folium-0.24.0.tar.gz", hash = "sha256:f59238feb8e4c1ec0cc54f19fc45d1ee198a8ca55f025bc0b906f48eb7fa5c10"},
+]
+
+[package.dependencies]
+branca = "*"
+folium = ">=0.13,<0.15.0 || >0.15.0"
+jinja2 = "*"
+streamlit = ">=1.35.0"
+
+[[package]]
 name = "tenacity"
 version = "9.0.0"
 description = "Retry code until it succeeds"
@@ -1502,4 +1519,4 @@ testing = ["coverage[toml]", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "8f195fb8a308cd831d0ce12aa001c29f96d71cf4ae9b4b5a14a91e0834d9f675"
+content-hash = "70825e443642084348db3af82ac92bf7fb844326bce47b130758f017ed59820c"
