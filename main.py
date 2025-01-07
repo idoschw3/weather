@@ -2,6 +2,8 @@ import streamlit as st
 import requests
 from weather.get_city_local_time import get_city_local_time_api, get_city_local_time_json
 from weather.json_utils import load_json
+from weather.foliumm_utils import get_lat_lon, display_map
+from streamlit_folium import st_folium
 
 st.title("Weather App")
 name = st.text_input("Enter your name:")
@@ -44,15 +46,22 @@ if name:
             if response.status_code == 200:
                 data = response.json()
                 icon_url = "https:" + data['current']['condition']['icon']
-                st.write(f"Here's the current weather in {city}:")
-                st.write(f"Data is updated to {data['location']['localtime']} local time.")
-                st.write(f"Temperature is {data['current']['temp_c']} celsius degrees.")
-                st.write(f"Humidity is {data['current']['humidity']}.")
-                st.write(f"Wind speed is {data['current']['wind_kph']} kph.")
-                col1, col2 = st.columns([1,3])
+                lat, lon = get_lat_lon(city)
+
+
+                col1, col2 = st.columns([3, 1])
                 with col1:
-                    st.write(f"Conditions are: {data['current']['condition']['text']}.")
+                    st.write(f"Here's the current weather in {city}:")
+                    st.write(f"Data is updated to {data['location']['localtime']} local time.")
+                    st.write(f"Temperature is {data['current']['temp_c']} celsius degrees.")
+                    st.write(f"Humidity is {data['current']['humidity']}.")
+                    st.write(f"Wind speed is {data['current']['wind_kph']} kph.")
+                    col3, col4 = st.columns([1,3])
+                    with col3:
+                        st.write(f"Conditions are: {data['current']['condition']['text']}.")
+                    with col4:
+                        st.image(icon_url)
                 with col2:
-                    st.image(icon_url)
+                    map_obj = display_map(lat, lon)
             else:
                 st.write("Failed to fetch current weather. Try again later.")
