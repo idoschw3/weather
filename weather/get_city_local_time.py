@@ -5,6 +5,13 @@ from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
 
 def get_city_local_time(city_name):
+    """
+
+    Args:
+         city_name: city input
+    return:
+    (city local time in format YYYY-MM-DD H:M, UTC offset)
+    """
     try:
         geolocator = Nominatim(user_agent="idoschw3-weather (https://idoschw3-weather.streamlit.app)")
 
