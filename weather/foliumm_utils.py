@@ -18,5 +18,5 @@ def get_lat_lon(city_name):
 def display_map(lat, lon):
     map_obj = folium.Map(location=[lat,lon], zoom_start=10)
     folium.Marker([lat, lon], popup="Requested Location").add_to(map_obj)
-    st_data = folium_static(map_obj)
+    st_data = folium_static(map_obj, width=400, height=400)
     return st_data

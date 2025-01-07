@@ -49,7 +49,7 @@ if name:
                 lat, lon = get_lat_lon(city)
 
 
-                col1, col2 = st.columns([3, 1])
+                col1, col2 = st.columns([3, 2])
                 with col1:
                     st.write(f"Here's the current weather in {city}:")
                     st.write(f"Data is updated to {data['location']['localtime']} local time.")
