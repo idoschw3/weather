@@ -1,5 +1,4 @@
 import folium
-import streamlit_folium as st_folium
 import time
 from geopy.geocoders import Nominatim
 from streamlit_folium import folium_static
