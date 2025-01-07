@@ -1,19 +1,26 @@
 import streamlit as st
 import requests
-from weather.get_city_local_time import get_city_local_time
+from weather.get_city_local_time import get_city_local_time_API, get_city_local_time_JSON
+from weather.json_utils import load_json
 
 st.title("Weather App")
 name = st.text_input("Enter your name:")
 if name:
     st.write(f"Hello {name}, welcome to the weather app")
-    user_city = st.text_input("From which city are you using the app?")
+    user_city = st.text_input("From which city are you using the app?").lower()
     if user_city:
-        user_local_time, user_UTC_offset = get_city_local_time(user_city)
-        st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
+        user_city_data = load_json('data/cities_timezone.json')
+        if user_city in user_city_data:
+            timezone = user_city_data[user_city]
 
-    city = st.text_input("At which city you wish to check the current weather?")
+            user_local_time, user_UTC_offset = get_city_local_time_JSON(timezone)
+            st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
+        #user_local_time, user_UTC_offset = get_city_local_time_API(user_city)
+        #st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
+
+    city = st.text_input("At which city you wish to check the current weather?").lower()
     if city:
-        city_local_time, city_UTC_offset = get_city_local_time(city)
+        city_local_time, city_UTC_offset = get_city_local_time_API(city)
         st.write(f"{city} local time: {city_local_time}. {city_UTC_offset}.")
         if st.button("show weather data"):
             key = '63e9898f15bf448cbe4130843250501'
