@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
-from weather.get_city_local_time import get_city_local_time_API, get_city_local_time_JSON
-from weather.json_utils import load_json,append_to_json
+from weather.get_city_local_time import get_city_local_time_api, get_city_local_time_json
+from weather.json_utils import load_json
 
 st.title("Weather App")
 name = st.text_input("Enter your name:")
@@ -13,10 +13,10 @@ if name:
         if user_city in user_city_data:
             timezone = user_city_data[user_city]
 
-            user_local_time, user_UTC_offset = get_city_local_time_JSON(timezone)
+            user_local_time, user_UTC_offset = get_city_local_time_json(timezone)
             st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
         else:
-            timezone, user_local_time, user_UTC_offset = get_city_local_time_API(user_city)
+            timezone, user_local_time, user_UTC_offset = get_city_local_time_api(user_city)
             if timezone:
                 st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
 
@@ -26,10 +26,10 @@ if name:
         if city in city_data:
             timezone = city_data[city]
 
-            city_local_time, city_UTC_offset = get_city_local_time_JSON(timezone)
+            city_local_time, city_UTC_offset = get_city_local_time_json(timezone)
             st.write(f"{city} local time: {city_local_time}. {city_UTC_offset}.")
         else:
-            timezone, city_local_time, city_UTC_offset = get_city_local_time_API(city)
+            timezone, city_local_time, city_UTC_offset = get_city_local_time_api(city)
             if timezone:
                 st.write(f"{city} local time: {city_local_time}. {city_UTC_offset}.")
 

@@ -4,7 +4,7 @@ import pytz
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderUnavailable
 
-def get_city_local_time_API(city_name):
+def get_city_local_time_api(city_name):
     """
 
     Args:
@@ -40,11 +40,11 @@ def get_city_local_time_API(city_name):
     except Exception as e:
         return None, f"An unexpected error occurred: {str(e)}"
 
-def get_city_local_time_JSON(timezone_str):
+def get_city_local_time_json(timezone_str):
     """
 
     Args:
-         city_name: city input
+         timezone_str: timezone string
     return:
     (city local time in format YYYY-MM-DD H:M, UTC offset)
 
