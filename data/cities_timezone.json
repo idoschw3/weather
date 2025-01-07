@@ -86,5 +86,8 @@
     "osaka": "Asia/Tokyo",
     "kuala lumpur": "Asia/Kuala_Lumpur",
     "lahore": "Asia/Karachi",
-    "beer sheva": "Asia/Jerusalem"
+    "beer sheva": "Asia/Jerusalem",
+    "bangalore": "Asia/Kolkata",
+    "haifa": "Asia/Jerusalem",
+    "boston": "America/New_York"
 }

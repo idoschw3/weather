@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 from weather.get_city_local_time import get_city_local_time_API, get_city_local_time_JSON
-from weather.json_utils import load_json
+from weather.json_utils import load_json,append_to_json
 
 st.title("Weather App")
 name = st.text_input("Enter your name:")
@@ -15,13 +15,34 @@ if name:
 
             user_local_time, user_UTC_offset = get_city_local_time_JSON(timezone)
             st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
-        #user_local_time, user_UTC_offset = get_city_local_time_API(user_city)
-        #st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
+        else:
+            timezone, user_local_time, user_UTC_offset = get_city_local_time_API(user_city)
+            if timezone:
+                st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
+
+                new_city_data = {user_city: str(timezone)}
+                append_to_json('data/cities_timezone.json', new_city_data)
+            else:
+                st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
 
     city = st.text_input("At which city you wish to check the current weather?").lower()
     if city:
-        city_local_time, city_UTC_offset = get_city_local_time_API(city)
-        st.write(f"{city} local time: {city_local_time}. {city_UTC_offset}.")
+        city_data = load_json('data/cities_timezone.json')
+        if city in city_data:
+            timezone = city_data[city]
+
+            city_local_time, city_UTC_offset = get_city_local_time_JSON(timezone)
+            st.write(f"{city} local time: {city_local_time}. {city_UTC_offset}.")
+        else:
+            timezone, city_local_time, city_UTC_offset = get_city_local_time_API(city)
+            if timezone:
+                st.write(f"{city} local time: {city_local_time}. {city_UTC_offset}.")
+
+                new_city_data = {city: str(timezone)}
+                append_to_json('data/cities_timezone.json', new_city_data)
+            else:
+                st.write(f"{city} local time: {city_local_time}. {city_UTC_offset}.")
+
         if st.button("show weather data"):
             key = '63e9898f15bf448cbe4130843250501'
             url = "http://api.weatherapi.com/v1/current.json"
