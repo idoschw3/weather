@@ -20,11 +20,6 @@ if name:
             if timezone:
                 st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
 
-                new_city_data = {user_city: str(timezone)}
-                append_to_json('data/cities_timezone.json', new_city_data)
-            else:
-                st.write(f"{user_city} local time: {user_local_time}. {user_UTC_offset}.")
-
     city = st.text_input("At which city you wish to check the current weather?").lower()
     if city:
         city_data = load_json('data/cities_timezone.json')
@@ -36,11 +31,6 @@ if name:
         else:
             timezone, city_local_time, city_UTC_offset = get_city_local_time_API(city)
             if timezone:
-                st.write(f"{city} local time: {city_local_time}. {city_UTC_offset}.")
-
-                new_city_data = {city: str(timezone)}
-                append_to_json('data/cities_timezone.json', new_city_data)
-            else:
                 st.write(f"{city} local time: {city_local_time}. {city_UTC_offset}.")
 
         if st.button("show weather data"):
